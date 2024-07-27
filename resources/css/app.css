@@ -1,0 +1,10 @@
+/* resources/css/app.css */
+
+.btn-primary, .btn-danger, .btn-success, .btn-info, .btn-warning, .btn-secondary, .btn-dark {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover, .btn-danger:hover, .btn-success:hover, .btn-info:hover, .btn-warning:hover, .btn-secondary:hover, .btn-dark:hover {
+    background-color: #0056b3; /* Couleur plus foncée */
+    transform: scale(1.05); /* Zoom léger */
+}
