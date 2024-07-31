@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('medical_records', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('blood_group');
+            $table->text('allergies')->nullable();
+            $table->text('medical_history')->nullable();           
             $table->date('date_of_birth');
-            $table->text('medical_history');
             $table->text('current_medications');
             $table->timestamps();
         });

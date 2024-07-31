@@ -71,4 +71,20 @@ class AppointmentController extends Controller
 
         return redirect()->route('appointments.index')->with('success', 'Rendez-vous supprimé avec succès.');
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $newStatus = $request->input('status');
+
+        // Met à jour le statut du rendez-vous
+        $appointment->status = $newStatus;
+        $appointment->save();
+
+        // Envoie la notification à l'utilisateur
+        $user = $appointment->user;
+        $user->notify(new AppointmentStatusNotification($appointment));
+
+        return redirect()->back()->with('success', 'Statut du rendez-vous mis à jour avec succès!');
+    }
 }

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('admins/assets/css/dashboard.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <title>Dashboard Admin</title>
 </head>
 
@@ -15,7 +16,7 @@
         <ul class="items">
             <li class="zone-image">
                 <img src="{{ asset('images/log.jpg') }}" alt="" srcset=""
-                    style="width: 60px; height: 60px; border-radius:60%;">
+                    style="width: 60px; height: 60px; border-radius:50%;">
             </li>
             <li class="zone-recherhce"><input type="search" placeholder="Rechercher.."></li>
             <li class="compte">
@@ -33,6 +34,7 @@
             </li>
         </ul>
     </div>
+
     <div class="containerP">
         <div class="sidebar">
             <div class="titreP">
@@ -88,29 +90,45 @@
                         </div>
                     </div>
                 </div>
-                <div class="ctn1">
-                    <div class="ctn1-title">
-                        <h3>Nombre de rendez-vous</h3>
-                    </div>
-                    <div class="icon-text">
-                        <div class="icon-item">
-                            <i class="fas fa-calendar-check"></i>
-                            <span>Total</span>
-                            <div class="nbr">{{ $totalAppointments }}</div>
-                        </div>
-                    </div>
+            </div>
+
+            <div class="ctne">
+                <div class="zon-nom">
+                    <h2>Nom</h2>
+                    @foreach ($patients as $patient)
+                        <p>{{ $patient->last_name }}</p>
+                    @endforeach
                 </div>
-                <div class="ctn1">
-                    <div class="ctn1-title">
-                        <h3>Dossiers medicaux</h3>
-                    </div>
+                <div class="zon-prenom">
+                    <h2>Prénom</h2>
+                    @foreach ($patients as $patient)
+                        <p>{{ $patient->first_name }}</p>
+                    @endforeach
                 </div>
-                <div class="ctn1">
-                    <div class="ctn1-title">
-                        <h3>consultation</h3>
-                    </div>
+                <div class="zone-pseudo">
+                    <h2>Téléphone</h2>
+                    @foreach ($patients as $patient)
+                        <p>{{ $patient->phone }}</p>
+                    @endforeach
                 </div>
-                <!-- Ajouter plus de sections si nécessaire -->
+                <div class="zone-email">
+                    <h2>Email</h2>
+                    @foreach ($patients as $patient)
+                        <p>{{ $patient->email }}</p>
+                    @endforeach
+                </div>
+                <div class="zone-sexe">
+                    <h2>Sexe</h2>
+                    @foreach ($patients as $patient)
+                        <p>{{ ucfirst($patient->gender) }}</p>
+                    @endforeach
+                </div>
+                <div class="zone-action">
+                    <h2>Action</h2>
+                    @foreach ($patients as $patient)
+                        <p><a href="">Supprimer</a></p>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

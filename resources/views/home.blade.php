@@ -12,19 +12,16 @@
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="{{ asset('images/bg1.png') }}" class="d-block w-100" alt="First slide">
-              <h3>Un Accueil Chaleureux</h3>
+            <h3>Un Accueil Chaleureux</h3>
             <p>Découvrez notre centre médical où chaque patient est accueilli avec chaleur et professionnalisme. Nous mettons tout en œuvre pour vous offrir des soins de qualité.</p>
-    
         </div>
         <div class="carousel-item">
             <img src="{{ asset('images/clinic_03.jpg') }}" class="d-block w-100" alt="Second slide">
             <h3>Des Soins Personnalisés</h3>
             <p>Nos équipes médicales vous offrent des soins personnalisés adaptés à vos besoins spécifiques. Votre santé est notre priorité.</p>
-    
         </div>
         <div class="carousel-item">
             <img src="{{ asset('images/clinic_01.jpg') }}" class="d-block w-100" alt="Third slide">
-            
             <h3>Un Engagement envers l'Excellence</h3>
             <p>Nous nous engageons à fournir des services médicaux d'excellence. Grâce à nos installations modernes et à notre personnel qualifié, nous visons à améliorer votre bien-être.</p>
         </div>
@@ -86,7 +83,7 @@
         </div>
     </div>
 
-    <!-- Sections de gestion -->
+    <!-- Sections de gestion pour utilisateurs authentifiés -->
     @auth
         <div class="row mb-4">
             <!-- Prendre Rendez-vous -->
@@ -105,7 +102,17 @@
                     <div class="card-body text-center">
                         <h3 class="card-title text-primary">Consulter Dossier Médical</h3>
                         <p class="card-text text-secondary">Accédez à votre dossier médical pour consulter vos informations et résultats.</p>
-                        <a href="{{ route('medical.records') }}" class="btn btn-primary text-white">Consulter</a>
+                        <a href="{{ route('medical_records.index') }}" class="btn btn-primary text-white">Consulter Dossier</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Consulter Rendez-vous -->
+            <div class="col-md-6 mb-4">
+                <div class="card border-warning shadow-sm">
+                    <div class="card-body text-center">
+                        <h3 class="card-title text-warning">Consulter Rendez-vous</h3>
+                        <p class="card-text text-secondary">Consultez vos rendez-vous passés et futurs.</p>
+                        <a href="{{ route('appointments.index') }}" class="btn btn-warning text-white">Consulter Rendez-vous</a>
                     </div>
                 </div>
             </div>
@@ -146,29 +153,5 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @endsection

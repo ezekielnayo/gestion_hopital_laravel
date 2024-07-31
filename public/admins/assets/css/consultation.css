@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.container{
+    background-color: bisque;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section{
+    padding: 5% 5%;
+    margin: 10% 0;
+    max-width: 600px;
+    background-color: aqua;
+}
+
+form{
+    padding: 5% 5%;
+    width: 5000px;
+}
+
+.input{
+}
+
+form .input-box{
+    display: block;
+    margin: 10px 0;
+    align-items: center;
+    
+
+}
+

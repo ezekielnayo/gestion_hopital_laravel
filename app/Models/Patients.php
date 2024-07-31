@@ -25,4 +25,9 @@ class Patients extends Model
     {
         return $this->hasMany(MedicalRecord::class);
     }
+    public function ad()
+    {
+        return $this->hasMany(user::class);
+    }
+
 }

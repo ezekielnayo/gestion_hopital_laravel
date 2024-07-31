@@ -8,12 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class MedicalRecord extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'patient_id', 'date_of_birth', 'medical_history', 'current_medications'
+    protected $fillable =[
+       'date_of_birth', 'medical_history', 'current_medications','user_id',
+        'blood_group',
+        'allergies','date_consult',
     ];
 
-    public function patient()
+    public function user()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(User::class);
     }
+    public function consultations()
+{
+     return $this->hasMany(Consultation::class);
+ }
 }

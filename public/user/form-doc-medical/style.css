@@ -1,0 +1,65 @@
+.form_content{
+    background-color: bisque;
+    padding: 20px 50px;
+}
+
+h5{
+    border-top: solid 1.5px #000;
+    width: 630px;
+}
+
+.form-group{
+    padding-bottom: 10px;
+}
+
+.form-group label{
+    font-size: 1.1rem;
+    padding-top: 5px;
+    padding-right: 10%;
+}
+
+.form-group select{
+    width: 100px;
+    float: right;
+    height: 30px;
+    border-radius: 10px;
+    padding:  0 5px;
+}
+
+.form-group input{
+    border-radius: 10px;
+    
+}
+
+.form-group ul{
+    margin-top: 20px;
+}
+
+.form-group ul li{
+    list-style: none;
+}
+
+.btn_style{
+    display: flex;
+    justify-content: space-between;
+    justify-content: space-around;
+}
+
+.btn_create{
+    width: 30%;
+    border-radius: 15px;
+    outline: none;
+    height: 40px;
+    border: none;
+    background-color: rgba(28, 119, 255, 0.562);
+
+}
+
+.btn_return{
+    outline: none;
+    width: 30%;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    background-color: #fff;
+}

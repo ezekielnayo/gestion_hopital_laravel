@@ -33,6 +33,7 @@ class RegisteredUserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'tel' =>'required|numeric|digits:8',
             'adresse'=>'required|string',
+            'gender' => ['required', 'string', 'in:male,female,other'],
         ]);
     
         $user = User::create([
@@ -42,6 +43,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($validatedData['password']),
             'phone' => $validatedData['tel'],
             'address' => $validatedData['adresse'],
+            'gender' =>$validatedData['gender'],
 
         ]);
     

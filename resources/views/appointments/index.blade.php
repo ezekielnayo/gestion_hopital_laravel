@@ -1,7 +1,8 @@
 @extends('app')
 
 @section('content')
-    <div class="container">
+    @if($appointments->isNotEmpty())
+	<div class="container">
         <h1>Liste des rendez-vous</h1>
         @if(session('success'))
             <div class="alert alert-success">
@@ -42,4 +43,7 @@
             </div>
         </div>
     </div>
+    @else
+	Pas de rendez-vous
+    @endif
 @endsection

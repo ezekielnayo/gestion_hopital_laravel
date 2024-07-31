@@ -7,6 +7,7 @@
     <!-- Inclure AOS CSS dans la balise <head> -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <link rel="stylesheet" href={{ asset ('css/slide.css')}} >
+    <link rel="stylesheet" href={{ asset ('user/form-doc-medical/style.css')}} >
 
     <!-- Inclure AOS JS avant la balise de fermeture </body> -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

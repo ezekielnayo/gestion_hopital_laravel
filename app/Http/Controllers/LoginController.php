@@ -36,7 +36,7 @@ class LoginController extends Controller
 
             switch ($role) {
                 case 'admin':
-                    return redirect()->intended('/dashboard')->with('success', 'Connexion réussie! Bienvenue, administrateur.');
+                    return redirect()->route('admin.dashboard')->with('success', 'Connexion réussie! Bienvenue, administrateur.');
                 case 'patient':
                     return redirect()->intended(route("home"))->with('success', 'Connexion réussie! Bienvenue.');
                 default:

@@ -15,14 +15,15 @@ class Appointment extends Model
         'user_id',
         'appointment_date',
         'motif',
+        'status', 
     ];
-    public function patient()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    public function user()
+       {
+           return $this->belongsTo(User::class);
+       }
 
-    public function employee()
-    {
-        return $this->belongsTo(Employee::class);
-    }
+    // public function employee()
+    // {
+        // return $this->belongsTo(Employee::class);
+    // }
 }

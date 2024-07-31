@@ -24,6 +24,7 @@ class User extends Authenticatable
             'password',
             'phone',
             'address',
+            'gender', 
         ];
     
         public function appointmentsAsEmployee()
