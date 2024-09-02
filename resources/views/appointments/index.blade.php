@@ -2,7 +2,7 @@
 
 @section('content')
     @if($appointments->isNotEmpty())
-	<div class="container">
+    <div class="container">
         <h1>Liste des rendez-vous</h1>
         @if(session('success'))
             <div class="alert alert-success">
@@ -16,8 +16,8 @@
                     <thead>
                         <tr>
                             <th>Motif</th>
-                           
                             <th>Date et Heure</th>
+                            <th>État</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -26,7 +26,15 @@
                             <tr>
                                 <td>{{ $appointment->motif }}</td>
                                 <td>{{ $appointment->appointment_date }}</td>
-                              
+                                <td>
+                                    @if($appointment->status === 'accepted')
+                                        Accepté
+                                    @elseif($appointment->status === 'refused')
+                                        Refusé
+                                    @else
+                                        En attente
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ route('appointments.show', $appointment) }}" class="btn btn-info">Voir</a>
                                     <a href="{{ route('appointments.edit', ["appointment"=>$appointment->id]) }}" class="btn btn-warning">Modifier</a>
@@ -44,6 +52,6 @@
         </div>
     </div>
     @else
-	Pas de rendez-vous
+    Pas de rendez-vous
     @endif
 @endsection

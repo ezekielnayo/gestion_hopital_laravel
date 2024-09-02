@@ -3,19 +3,17 @@
 @section('content')
     <div class="container">
         <h1>Détails du rendez-vous</h1>
-        <div class="card mb-4">
-            <div class="card-body">
-            
-                
-                <p class="card-text"><strong>Date et Heure :</strong> {{ $appointment->appointment_date }}</p>
-                <a href="{{ route('appointments.index') }}" class="btn btn-primary">Retour à la liste des rendez-vous</a>
-                <a href="{{ route('appointments.edit', $appointment) }}" class="btn btn-warning">Modifier</a>
-                <form action="{{ route('appointments.destroy', $appointment) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                </form>
-            </div>
-        </div>
+        <p>Motif: {{ $appointment->motif }}</p>
+        <p>Date et Heure: {{ $appointment->appointment_date }}</p>
+        <p>État: 
+            @if($appointment->status === 'accepted')
+                Accepté
+            @elseif($appointment->status === 'refused')
+                Refusé
+            @else
+                En attente
+            @endif
+        </p>
+        <a href="{{ route('appointments.index') }}" class="btn btn-primary">Retour à la liste</a>
     </div>
 @endsection

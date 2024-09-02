@@ -9,49 +9,62 @@ use Illuminate\Notifications\Notification;
 
 class AppointmentStatusNotification extends Notification
 {
-    use Queueable;
+    protected $appointment;
+    protected $status;
 
     /**
      * Create a new notification instance.
+     *
+     * @return void
      */
-    public function __construct($appointment)
+    public function __construct($appointment, $status)
     {
         $this->appointment = $appointment;
+        $this->status = $status;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @return array<int, string>
+     * @param mixed $notifiable
+     * @return array
      */
-    public function via(object $notifiable): array
+    public function via($notifiable)
     {
         return ['mail'];
     }
 
     /**
      * Get the mail representation of the notification.
+     *
+     * @param mixed $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->subject('Mise à jour du rendez-vous')
-                    ->line('Votre rendez-vous prévu pour le ' . $this->appointment->appointment_date . ' a été ' . $this->appointment->status . '.')
-                    // ->action('Voir le rendez-vous', url('/appointments/' . $this->appointment->id))
-                    ->line('Merci de votre confiance!');
-    }
+
+     public function toMail($notifiable)
+     {
+         return (new MailMessage)
+                     ->line('Votre rendez-vous a été ' . $this->status)
+                     ->line('Date et heure du rendez-vous : ' . $this->appointment->appointment_date)
+                     ->line('Motif : ' . $this->appointment->motif)
+                     ->action('Voir les détails', url('/appointments/' . $this->appointment->id))
+                     ->line('Merci d\'utiliser notre application!');
+     }
+ 
 
     /**
      * Get the array representation of the notification.
      *
-     * @return array<string, mixed>
+     * @param mixed $notifiable
+     * @return array
      */
-    public function toArray(object $notifiable): array
+    public function toArray($notifiable)
     {
+
         return [
             'appointment_id' => $this->appointment->id,
-            'status' => $this->appointment->status,
-            'appointment_date' => $this->appointment->appointment_date,
+            'status' => $this->status,
         ];
     }
+
 }

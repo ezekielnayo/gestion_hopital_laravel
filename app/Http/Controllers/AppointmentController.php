@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Notifications\AppointmentStatusNotification;
 use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
@@ -51,19 +52,34 @@ class AppointmentController extends Controller
         return view('appointments.edit', compact('appointment'));
     }
 
+
+
+
     public function update(Request $request, Appointment $appointment)
     {
         $request->validate([
-            'patient_id' => 'required|exists:patients,id',
-            // 'employee_id' => 'required|exists:employees,id',
             'appointment_date' => 'required|date',
-            // 'notes' => 'nullable|string',
+            'motif' => 'required|string',
         ]);
-
-        $appointment->update($request->all());
-
+    
+        // Mise à jour des champs dans l'objet Appointment
+        $appointment->update([
+            'appointment_date' => $request->input('appointment_date'),
+            'motif' => $request->input('motif'),
+        ]);
+    
         return redirect()->route('appointments.index')->with('success', 'Rendez-vous mis à jour avec succès.');
     }
+    
+
+
+
+
+
+
+
+
+
 
     public function destroy(Appointment $appointment)
     {
@@ -71,20 +87,70 @@ class AppointmentController extends Controller
 
         return redirect()->route('appointments.index')->with('success', 'Rendez-vous supprimé avec succès.');
     }
+    // public function updateStatus(Request $request, $id)
+// {
+    // $appointment = Appointment::findOrFail($id);
+    // $oldStatus = $appointment->status;
+    // $appointment->status = $request->input('status');
+    // $appointment->save();
+    // \Log::info('Rendez-vous mis à jour : ', ['appointment_id' => $id, 'new_status' => $newStatus]);
+// 
+    // Envoyer la notification à l'utilisateur
+    // $user = User::findOrFail($appointment->user_id);
+    // $user->notify(new AppointmentStatusNotification($appointment, $appointment->status));
+// 
+    // return redirect()->back()->with('status', 'Statut du rendez-vous mis à jour et notification envoyée.');
+// }
+public function accept(Appointment $appointment)
+{
+    $appointment->status = 'accepted';
+    $appointment->save();
 
-    public function updateStatus(Request $request, $id)
+    return redirect()->route('appointments.index')->with('success', 'Rendez-vous accepté.');
+}
+
+public function refuse(Appointment $appointment)
+{
+    $appointment->status = 'refused';
+    $appointment->save();
+
+    return redirect()->route('appointments.index')->with('success', 'Rendez-vous refusé.');
+}
+
+
+    // Afficher le formulaire de création de rendez-vous
+    public function creat()
     {
-        $appointment = Appointment::findOrFail($id);
-        $newStatus = $request->input('status');
+        // Récupérer tous les utilisateurs ayant le rôle de patient
+        $patients = User::where('role', 'patient')->get();
 
-        // Met à jour le statut du rendez-vous
-        $appointment->status = $newStatus;
-        $appointment->save();
-
-        // Envoie la notification à l'utilisateur
-        $user = $appointment->user;
-        $user->notify(new AppointmentStatusNotification($appointment));
-
-        return redirect()->back()->with('success', 'Statut du rendez-vous mis à jour avec succès!');
+        return view('admin.form', compact('patients'));
     }
+
+    // Enregistrer le rendez-vous
+    public function stor(Request $request)
+    {
+        // Validation des données du formulaire
+        $request->validate([
+            'patient_id' => 'required|exists:users,id', // Vérifie que l'ID du patient existe
+            'appointment_date' => 'required|date|after:tomorrow',
+            'motif' => 'nullable|string',
+        ]);
+    
+        // Création du rendez-vous
+        Appointment::create([
+            'user_id' => $request->patient_id, // Utilise l'ID du patient sélectionné
+            'appointment_date' => $request->appointment_date,
+            'motif' => $request->motif,
+            'status' => 'pending', // Statut par défaut
+        ]);
+    
+        // Rediriger vers la vue de création avec un message de succès
+        return redirect()->route('admin.listerdv')->with('success', 'Rendez-vous créé avec succès.');
+    }
+    
+
+
+
+
 }

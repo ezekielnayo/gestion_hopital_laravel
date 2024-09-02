@@ -6,11 +6,21 @@ use Illuminate\Http\Request;
 use app\Models\Employee;
 use app\Models\User;
 use App\Models\Appointment;
+use App\Models\Consultation;
+use App\Models\MedicalRecord;
+use App\Models\Death;
+use App\Models\MedicalVisit;
+
+
+
+
 
 class AdminDashboardController extends Controller
 {
     public function addview()
     {
+        $totalDeaths = Death::count();
+        $totalMedicalRecords = MedicalRecord::count();
         $totalPatients = User::where(
             "role",'patient'
         )->count();
@@ -22,9 +32,44 @@ class AdminDashboardController extends Controller
             ['gender', '=', 'female'],
             ['role', '=', 'patient']
         ])->count();
-        $totalAppointments = Appointment::count();
+        $medicalRecordsCompleted = MedicalRecord::where('completed', true)->count();
 
-        return view('admin.dashboard', compact('totalPatients', 'malePatients', 'femalePatients', 'totalAppointments'));
+        $rejectedAppointments = Appointment::where('status', 'refused')->count();
+        \Log::info('Rejected Appointments Count: ' . $rejectedAppointments);
+
+        $acceptedAppointments = Appointment::where('status', 'accepted')->count();
+        $totalConsultations = Consultation::count();
+        $totalAppointments = Appointment::count();
+        $totalcons = Consultation::count();
+        $ongoingConsultations = Consultation::where('status', 'en_cours')->count();
+        $completedConsultations = Consultation::where('status', 'complete')->count();
+        $totalMedicalVisits = MedicalVisit::count();
+        $medicalRecordsCreated = MedicalRecord::whereNotNull('created_at')->count();
+        $pendingAppointments = Appointment::where('status', 'pending')->count();
+
+
+        return view('admin.dashboard', [
+            'medicalRecordsCreated' => $medicalRecordsCreated,
+            'medicalRecordsCompleted' => $medicalRecordsCompleted,
+            'totalMedicalRecords' => $totalMedicalRecords,
+            'rejectedAppointments' => $rejectedAppointments,
+             'medicalRecordsCompleted' => $medicalRecordsCompleted,
+            'totalPatients' => $totalPatients,
+            'malePatients' => $malePatients,
+            'femalePatients' => $femalePatients,
+            'totalAppointments' => $totalAppointments,
+            'totalConsultations' => $totalConsultations,
+            'ongoingConsultations' => $ongoingConsultations,
+            'completedConsultations' => $completedConsultations,
+            'acceptedAppointments' => $acceptedAppointments,
+            'totalDeaths' => $totalDeaths,
+            'pendingAppointments' =>  $pendingAppointments,
+            'totalMedicalVisits' =>   $totalMedicalVisits,
+
+        ]);
+
+
+       
     }
     // public function med(){
         // return view('admin.medical_records');

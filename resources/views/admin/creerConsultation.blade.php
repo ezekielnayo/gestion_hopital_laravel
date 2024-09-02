@@ -22,7 +22,8 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .form-control, .form-control-plaintext {
+        .form-control,
+        .form-control-plaintext {
             border-radius: 0.25rem;
             padding: 0.5rem;
         }
@@ -75,7 +76,6 @@
         .btn-back:hover {
             background-color: #5a6268;
         }
-
     </style>
 </head>
 
@@ -88,115 +88,116 @@
             <div class="mb-4">
                 <a href="{{ url()->previous() }}" class="btn btn-back"><i class="fas fa-arrow-left"></i> Retour</a>
             </div>
-
-            <form method="POST" action="{{ route('consultation.submit') }}" class="needs-validation" novalidate>
+             <h1>Créer une Consultation pour {{ $recordData->first_name }} {{ $recordData->last_name }}</h1>
+            <form action="{{ route('consultation.submit') }}" method="POST">
                 @csrf
+                <!-- Champ pour l'ID de l'utilisateur -->
+                <input type="hidden" name="user_id" value="{{ $recordData->id }}">
 
-                <!-- Informations de l'Utilisateur -->
                 <div class="form-row">
+                    <!-- Champs préremplis pour le nom et le prénom (readonly) -->
                     <div class="form-group col-md-6">
-                        <label for="first_name" class="section-title">Prénom :</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name"
+                            value="{{ $recordData->first_name }}" readonly>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="last_name" class="section-title">Nom :</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name"
+                            value="{{ $recordData->last_name }}" readonly>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="phone" class="section-title">Téléphone :</label>
-                    <input type="text" class="form-control" id="phone" name="phone" required>
-                </div>
 
-                <!-- Détails de la Consultation -->
-                <div class="form-group">
-                    <label for="consultation_date" class="section-title">Date de Consultation :</label>
-                    <input type="date" class="form-control" id="consultation_date" name="consultation_date" required>
-                </div>
-
-                <!-- Examen Physique -->
+                <!-- Autres champs de votre formulaire -->
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="weight" class="section-title">Poids (kg) :</label>
+                        <label for="consultation_date">Consultation Date</label>
+                        <input type="date" class="form-control" id="consultation_date" name="consultation_date"
+                            required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="weight">Weight</label>
                         <input type="text" class="form-control" id="weight" name="weight">
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="temperature" class="section-title">Température :</label>
+                        <label for="temperature">Temperature</label>
                         <input type="text" class="form-control" id="temperature" name="temperature">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="height">Height</label>
+                        <input type="text" class="form-control" id="height" name="height">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="height" class="section-title">Taille (cm) :</label>
-                        <input type="text" class="form-control" id="height" name="height">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="blood_pressure" class="section-title">Pression Artérielle :</label>
+                        <label for="blood_pressure">Blood Pressure</label>
                         <input type="text" class="form-control" id="blood_pressure" name="blood_pressure">
                     </div>
+                    <div class="form-group col-md-6">
+                        <label for="consultation_reason">Consultation Reason</label>
+                        <input type="text" class="form-control" id="consultation_reason" name="consultation_reason"
+                            required>
+                    </div>
                 </div>
+                <div class="form-group">
+                    <label for="symptoms">Symptoms</label>
+                    <input type="text" class="form-control" id="symptoms" name="symptoms">
+                </div>
+                <div class="form-group">
+                    <label for="preliminary_diagnosis">Preliminary Diagnosis</label>
+                    <input type="text" class="form-control" id="preliminary_diagnosis" name="preliminary_diagnosis">
+                </div>
+                <div class="form-group">
+                    <label for="medical_history">Medical History</label>
+                    <input type="text" class="form-control" id="medical_history" name="medical_history">
+                </div>
+                <div class="form-group">
+                    <label for="chronic_diseases">Chronic Diseases</label>
+                    <input type="text" class="form-control" id="chronic_diseases" name="chronic_diseases">
+                </div>
+                <div class="form-group">
+                    <label for="current_medications">Current Medications</label>
+                    <input type="text" class="form-control" id="current_medications" name="current_medications">
+                </div>
+                <div class="form-group">
+                    <label for="dosage">Dosage</label>
+                    <input type="text" class="form-control" id="dosage" name="dosage">
+                </div>
+                <div class="form-group">
+                    <label for="laboratory_tests">Laboratory Tests</label>
+                    <input type="text" class="form-control" id="laboratory_tests" name="laboratory_tests">
+                </div>
+                <div class="form-group">
+                    <label for="test_results">Test Results</label>
+                    <input type="text" class="form-control" id="test_results" name="test_results">
+                </div>
+                <div class="form-group">
+                    <label for="treatment_plan">Treatment Plan</label>
+                    <input type="text" class="form-control" id="treatment_plan" name="treatment_plan">
+                </div>
+                <div class="form-group">
+                    <label for="follow_up">Follow Up</label>
+                    <input type="text" class="form-control" id="follow_up" name="follow_up">
+                </div>
+                <div class="form-group">
+                    <label for="comments">Comments</label>
+                    <input type="text" class="form-control" id="comments" name="comments">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" class="form-control" id="phone" name="phone"
+                        value="{{ $recordData->phone }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status" name="status" required>
+                        <option value="en_cours">en cours</option>
+                        <option value="complete">Terminées</option>
+                    </select>
 
-                <!-- Motif de la Consultation et Symptômes -->
-                <div class="form-group">
-                    <label for="consultation_reason" class="section-title">Motif de la Consultation :</label>
-                    <textarea class="form-control" id="consultation_reason" name="consultation_reason" rows="2" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="symptoms" class="section-title">Symptômes :</label>
-                    <textarea class="form-control" id="symptoms" name="symptoms" rows="2"></textarea>
-                </div>
-
-                <!-- Diagnostic Préliminaire et Antécédents Médicaux -->
-                <div class="form-group">
-                    <label for="preliminary_diagnosis" class="section-title">Diagnostic Préliminaire :</label>
-                    <textarea class="form-control" id="preliminary_diagnosis" name="preliminary_diagnosis" rows="2"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="medical_history" class="section-title">Antécédents Médicaux :</label>
-                    <textarea class="form-control" id="medical_history" name="medical_history" rows="2"></textarea>
-                </div>
-
-                <!-- Maladies Chroniques et Médicaments -->
-                <div class="form-group">
-                    <label for="chronic_diseases" class="section-title">Maladies Chroniques :</label>
-                    <textarea class="form-control" id="chronic_diseases" name="chronic_diseases" rows="2"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="current_medications" class="section-title">Médicaments Actuels :</label>
-                    <textarea class="form-control" id="current_medications" name="current_medications" rows="2"></textarea>
-                </div>
-
-                <!-- Posologie et Tests de Laboratoire -->
-                <div class="form-group">
-                    <label for="dosage" class="section-title">Posologie :</label>
-                    <textarea class="form-control" id="dosage" name="dosage" rows="2"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="laboratory_tests" class="section-title">Tests de Laboratoire :</label>
-                    <textarea class="form-control" id="laboratory_tests" name="laboratory_tests" rows="2"></textarea>
-                </div>
-
-                <!-- Résultats et Plan de Traitement -->
-                <div class="form-group">
-                    <label for="test_results" class="section-title">Résultats :</label>
-                    <textarea class="form-control" id="test_results" name="test_results" rows="2"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="treatment_plan" class="section-title">Plan de Traitement :</label>
-                    <textarea class="form-control" id="treatment_plan" name="treatment_plan" rows="2"></textarea>
-                </div>
-
-                <!-- Suivi et Commentaires -->
-                <div class="form-group">
-                    <label for="follow_up" class="section-title">Suivi :</label>
-                    <textarea class="form-control" id="follow_up" name="follow_up" rows="2"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="comments" class="section-title">Commentaires :</label>
-                    <textarea class="form-control" id="comments" name="comments" rows="2"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block">Soumettre</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer la Consultation</button>
             </form>
         </section>
     </div>

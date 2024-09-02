@@ -14,6 +14,7 @@
             width: 100%;
             border-collapse: collapse;
         }
+        
 
         table,
         th,
@@ -54,6 +55,21 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-cons {
+            background-color: #007bff; /* Couleur de fond du bouton */
         }
 
         .btn-create {
@@ -109,7 +125,7 @@
             </div>
             <div class="titre1">
                 <a href="{{ route('admin.dashboard') }}">
-                    <h3>Home</h3>
+                    <h3>Acceuil</h3>
                 </a>
             </div>
             <div class="titre1">
@@ -132,30 +148,25 @@
                     <h3>Consultation</h3>
                 </a>
             </div>
+            <div class="titre1">
+                <a href="{{ route('deaths.create') }}">
+                    <h3><i class="fas fa-file-medical"></i> Déclarations</h3>
+                </a>
+            </div>
+            <div class="titre1">
+                <a href="{{ route('deaths.index') }}">
+                    <h3><i class="fas fa-cross"></i> Liste necrologique</h3>
+                </a>
+            </div>
+            <div class="titre1">
+                <a href="{{ route('medical_visits.index') }}">
+                    <h3><i class="fas fa-stethoscope"></i> Visites Médicales</h3>
+                </a>
+            </div>
         </div>
 
         <div class="contenu">
-            <div class="ctn">
-                <div class="ctn1">
-                    <div class="ctn1-title">
-                        <h3>Nombres de Consultation</h3>
-                    </div>
-                    <div class="icon-text">
-                        <div class="icon-item">
-                            <i class="fas fa-calendar-check"></i>
-                            <span>Total</span>
-                            <div class="nbr">{{$consultations}}</div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="btn-container">
-                    <a href="{{ route('creerConsultation') }}">
-                        <button class="btn btn-create">Créer Consultation</button>
-                    </a>
-                </div>
-                <!-- Table des dossiers médicaux -->
-            </div>
             <table>
                 <thead>
                     <tr>
@@ -182,6 +193,9 @@
                             <td>{{ $record->date_of_birth }}</td>
                             <td>{{ $record->date_consult }}</td>
                             <td>
+                            
+                                <a href="{{ route('consultations.create', $record->user_id) }}"
+                                    class="btn btn-cons">Consulter</a>
                             </td>
                         </tr>
                     @endforeach

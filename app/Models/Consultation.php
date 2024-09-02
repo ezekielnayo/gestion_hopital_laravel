@@ -31,6 +31,7 @@ class Consultation extends Model
         'treatment_plan',
         'follow_up',
         'comments',
+        'status',
     
     ];
 

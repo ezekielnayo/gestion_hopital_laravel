@@ -76,12 +76,21 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ route('contact.index') }}">Nous Contacter</a>
                 </li>
-                @auth
-                    <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}" class="form-inline">
-                            @csrf
-                            <button type="submit" class="btn btn-danger ml-2">Se déconnecter</button>
-                        </form>
+                 @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ asset('storage/passport_photos/' . Auth::user()->passport_photo) }}" class="rounded-circle" alt="User Photo" style="width: 40px; height: 40px;">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{{ route('users.edit', ['id' => Auth::user()->id]) }}">Modifier le Profil</a>
+
+                    
+
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Se déconnecter</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
                     </li>
                 @else
                     <li class="nav-item">

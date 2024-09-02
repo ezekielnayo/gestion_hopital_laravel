@@ -46,7 +46,7 @@ class MedicalRecordController extends Controller
             'medical_history' => 'required|boolean',
             'current_medications' => 'required|boolean',
             'allergies' => 'required|boolean',
-            'date_consult' => 'required|date',
+           'date_consult' => 'nullable|date',
         ]);
 
         MedicalRecord::create(array_merge($request->all(), ['user_id' => Auth::id()]));

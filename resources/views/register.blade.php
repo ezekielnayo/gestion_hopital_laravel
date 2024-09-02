@@ -12,7 +12,8 @@
                     <div class="card-header bg-primary text-white">{{ __('Register') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+
                             @csrf
 
                             <div class="form-group">
@@ -61,6 +62,29 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label for="passport_photo">Photo de Passeport</label>
+                                <input id="passport_photo" type="file"
+                                    class="form-control @error('passport_photo') is-invalid @enderror" name="passport_photo"
+                                    accept="image/jpeg, image/png, image/jpg">
+                                @error('passport_photo')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
                             <div class="form-group">
                                 <label for="email">Email</label>

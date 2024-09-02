@@ -4,27 +4,51 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Consultation;
+use App\Models\User;
+
+// use PDF;
 
 
 class ConsultationController extends Controller
 {
-    public function index()
+    // public function generatePDF($id)
+    // {
+        // $consultation = Consultation::findOrFail($id);
+        // 
+        // $pdf = PDF::loadView('pdf.consultation', compact('consultation'));
+        // return $pdf->download('consultation_'.$consultation->id.'.pdf');
+    // }
+    public function destroy($id)
     {
+        // Récupérer la consultation par ID et la supprimer
+        $consultation = Consultation::findOrFail($id);
+        $consultation->delete();
+
+        // Rediriger avec un message de succès
+        return redirect()->route('consultations.index')->with('success', 'Consultation supprimée avec succès.');
+    }
+    public function index()
+
+    {
+        // $consultations = Consultation::paginate(10);
         $consultations = Consultation::all();
         return view('admin.medical_records', compact('consultations'));
     }
 
-    public function create()
+    public function create($record)
     {
-        $consultations = Consultation::all();
+        // Vous pouvez récupérer le patient ou autre information en utilisant l'ID fourni dans $record
+        $recordData = User::findOrFail($record);
 
-        return view('admin.creerConsultation',compact('consultations'));
+        // Passer les données nécessaires à la vue
+        return view('admin.creerConsultation', compact('recordData'));
     }
 
     public function submit(Request $request)
     {
         // Valider les données du formulaire
         $validatedData = $request->validate([
+            'user_id' => 'required|exists:users,id',
             'consultation_date' => 'required|date',
             'weight' => 'nullable|string',
             'temperature' => 'nullable|string',
@@ -42,10 +66,14 @@ class ConsultationController extends Controller
             'treatment_plan' => 'nullable|string',
             'follow_up' => 'nullable|string',
             'comments' => 'nullable|string',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
+            'status' => 'required|in:en_cours,complete',
+            
+
         ]);
+
+        // Récupérer l'utilisateur à partir de l'ID fourni
+        $user = User::findOrFail($validatedData['user_id']);
 
         // Créer une nouvelle consultation
         $consultation = new Consultation();
@@ -66,14 +94,53 @@ class ConsultationController extends Controller
         $consultation->treatment_plan = $validatedData['treatment_plan'];
         $consultation->follow_up = $validatedData['follow_up'];
         $consultation->comments = $validatedData['comments'];
-        $consultation->first_name = $validatedData['first_name'];
-        $consultation->last_name = $validatedData['last_name'];
+        $consultation->first_name = $user->first_name;
+        $consultation->last_name = $user->last_name;
+        $consultation->passport_photo = $user->passport_photo;
+
         $consultation->phone = $validatedData['phone'];
+        $consultation->user_id = $validatedData['user_id']; 
+        $consultation->status =  $validatedData['status']; // Marque la consultation comme terminée
+        $consultation->save();// Utilisez la valeur validée
 
         // Sauvegarder la consultation dans la base de données
         $consultation->save();
 
         // Rediriger vers le tableau de bord admin avec un message de succès
-        return redirect()->route('admin.medical_records')->with('success', 'Consultation enregistrée avec succès');
+        return redirect()->route('consultations.index')->with('success', 'Consultation enregistrée avec succès');
     }
+    public function edit($id)
+    {
+        // Récupérer la consultation par ID
+        $consultation = Consultation::findOrFail($id);
+
+        // Afficher la vue de modification avec les données de la consultation
+        return view('admin.edit', compact('consultation'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Valider les données de la requête
+        $validatedData = $request->validate([
+            'consultation_date' => 'required|date',
+            'weight' => 'required|numeric',
+            'temperature' => 'required|numeric',
+            'height' => 'required|numeric',
+            'blood_pressure' => 'required|string',
+            'consultation_reason' => 'required|string',
+            'symptoms' => 'required|string',
+            'preliminary_diagnosis' => 'required|string',
+            'follow_up' => 'required|string',
+            'comments' => 'nullable|string',
+        ]);
+
+        // Récupérer la consultation par ID
+        $consultation = Consultation::findOrFail($id);
+
+        // Mettre à jour les données de la consultation
+        $consultation->update($validatedData);
+
+        // Rediriger avec un message de succès
+        return redirect()->route('consultations.index')->with('success', 'Consultation mise à jour avec succès.');
+}
 }

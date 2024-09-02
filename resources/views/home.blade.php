@@ -11,17 +11,17 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="{{ asset('images/bg1.png') }}" class="d-block w-100" alt="First slide">
+            <img src="{{ asset('images/ok.png') }}" class="d-block w-100" alt="First slide">
             <h3>Un Accueil Chaleureux</h3>
             <p>Découvrez notre centre médical où chaque patient est accueilli avec chaleur et professionnalisme. Nous mettons tout en œuvre pour vous offrir des soins de qualité.</p>
         </div>
         <div class="carousel-item">
-            <img src="{{ asset('images/clinic_03.jpg') }}" class="d-block w-100" alt="Second slide">
+            <img src="{{ asset('images/bg1.png') }}" class="d-block w-100" alt="Second slide">
             <h3>Des Soins Personnalisés</h3>
             <p>Nos équipes médicales vous offrent des soins personnalisés adaptés à vos besoins spécifiques. Votre santé est notre priorité.</p>
         </div>
         <div class="carousel-item">
-            <img src="{{ asset('images/clinic_01.jpg') }}" class="d-block w-100" alt="Third slide">
+            <img src="{{ asset('images/ookk.jpg') }}" class="d-block w-100" alt="Third slide">
             <h3>Un Engagement envers l'Excellence</h3>
             <p>Nous nous engageons à fournir des services médicaux d'excellence. Grâce à nos installations modernes et à notre personnel qualifié, nous visons à améliorer votre bien-être.</p>
         </div>

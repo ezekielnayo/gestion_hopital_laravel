@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    use HasFactory;
+    use HasFactory;  
 
     // protected $table = 'appointments';
 
@@ -26,4 +26,6 @@ class Appointment extends Model
     // {
         // return $this->belongsTo(Employee::class);
     // }
+
+    
 }

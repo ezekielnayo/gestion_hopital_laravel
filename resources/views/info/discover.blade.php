@@ -85,7 +85,7 @@
                     <p class="card-text">
                         Pour prendre rendez-vous avec nos médecins, vous pouvez utiliser notre plateforme en ligne ou nous contacter directement. Nous nous engageons à répondre rapidement à toutes vos demandes de rendez-vous pour assurer un suivi personnalisé.
                     </p>
-                    <a href="{{ route('appointment.create') }}" class="btn btn-success">Prendre Rendez-vous</a>
+                    <a href="{{ route('discover') }}" class="btn btn-success">Prendre Rendez-vous</a>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@
                     <p class="card-text">
                         Accédez à votre dossier médical en ligne pour consulter vos informations de santé, résultats d'examen, et autres documents importants. Nous assurons la sécurité et la confidentialité de vos données.
                     </p>
-                    <a href="{{ route('medical.records') }}" class="btn btn-dark">Consulter</a>
+                    <a href="{{ route('medical_records.index') }}" class="btn btn-dark">Consulter</a>
                 </div>
             </div>
         </div>

@@ -25,6 +25,7 @@ class User extends Authenticatable
             'phone',
             'address',
             'gender', 
+            'passport_photo',
         ];
     
         public function appointmentsAsEmployee()
@@ -36,9 +37,22 @@ class User extends Authenticatable
         {
             return $this->hasMany(Appointment::class, 'patient_id');
         }
+        public function appointments()
+        {
+            return $this->hasMany(Appointment::class, 'user_id');
+        }
     
         public function medicalRecords()
         {
             return $this->hasMany(MedicalRecord::class, 'patient_id');
         }
+            
+    public function Consultation()
+    {
+        return $this->hasMany(Consultation::class, 'consultation_id');
+    }
+    public function deaths()
+{
+    return $this->hasMany(Death::class, 'user_id');
+}
     }

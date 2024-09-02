@@ -12,7 +12,13 @@ use Illuminate\Queue\SerializesModels;
 class testmail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    // public function content(): Content
+    // {
+        // return new Content(
+            // view: '',  // Assurez-vous que cette vue existe
+        // );
+    // }
+    // 
     /**
      * Create a new message instance.
      */
@@ -28,6 +34,7 @@ class testmail extends Mailable
     {
         return new Envelope(
             subject: 'Testmail',
+            from:new Address('ezekielnayo7@gmail.com','elom')
         );
     }
 
@@ -37,7 +44,7 @@ class testmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'password.reset',
         );
     }
 
